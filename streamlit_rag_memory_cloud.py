@@ -109,17 +109,12 @@ def initialize_components(selected_model):
     
     # rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
     rag_chain = (
-        {
-            "answer": (
-                {
-                    "context": history_aware_retriever | RunnableLambda(format_docs),
-                    "input": itemgetter("input"),
-                    "history": itemgetter("history"),
-                }
-                | question_answer_chain
-            ),
-        }
-    )
+        { 
+            "context": history_aware_retriever |
+            RunnableLambda(format_docs), "input": itemgetter("input"), "history": itemgetter("history"),
+        } 
+        | question_answer_chain 
+    ) 
     return rag_chain
 
 # Streamlit UI
