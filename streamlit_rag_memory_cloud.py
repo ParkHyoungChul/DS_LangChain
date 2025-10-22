@@ -3,15 +3,22 @@ import streamlit as st
 import tempfile
 
 from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_community.vectorstores import Chroma
 
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnablePassthrough 
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
+
+from langchain_community.vectorstores import Chroma
+
+from langchain.chains.combine_documents import create_stuff_documents_chain
+
+
+
 
 __import__('pysqlite3')
 import sys
@@ -131,4 +138,5 @@ if prompt_message := st.chat_input("Your question"):
             with st.expander("참고 문서 확인"):
                 for doc in response['context']:
                     st.markdown(doc.metadata['source'], help=doc.page_content)
+
 
