@@ -110,11 +110,15 @@ def initialize_components(selected_model):
     # rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
     rag_chain = (
         {
-            "context": history_aware_retriever | RunnableLambda(format_docs),
-            "input": itemgetter("input"),
-            "history": itemgetter("history"),
+            "answer": (
+                {
+                    "context": history_aware_retriever | RunnableLambda(format_docs),
+                    "input": itemgetter("input"),
+                    "history": itemgetter("history"),
+                }
+                | question_answer_chain
+            ),
         }
-        | question_answer_chain
     )
     return rag_chain
 
@@ -155,6 +159,7 @@ if prompt_message := st.chat_input("Your question"):
             with st.expander("참고 문서 확인"):
                 for doc in response['context']:
                     st.markdown(doc.metadata['source'], help=doc.page_content)
+
 
 
 
