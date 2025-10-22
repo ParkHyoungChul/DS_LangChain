@@ -105,12 +105,7 @@ def initialize_components(selected_model):
         return "\n\n".join(getattr(d, "page_content", str(d)) for d in docs)
     
     # question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
-    question_answer_chain = (
-        {"context": RunnableLambda(format_docs)}  # context 키 생성
-        | qa_prompt
-        | llm
-        | StrOutputParser()
-    )
+    question_answer_chain = qa_prompt | llm | StrOutputParser()
     
     # rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
     rag_chain = (
@@ -160,6 +155,7 @@ if prompt_message := st.chat_input("Your question"):
             with st.expander("참고 문서 확인"):
                 for doc in response['context']:
                     st.markdown(doc.metadata['source'], help=doc.page_content)
+
 
 
 
