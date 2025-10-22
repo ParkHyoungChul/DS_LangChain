@@ -15,13 +15,12 @@ openai
 nltk==3.8.1
 pypdfium2
 pypdf
-rapidocr-onnxruntime
-sentence-transformers
-unstructured
-unstructured[pdf]
+pysqlite3-binary
+pypdf
+langchain-text-splitters
 
-grandalf 
 streamlit
+
 
 
 
