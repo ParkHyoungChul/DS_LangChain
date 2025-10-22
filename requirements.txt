@@ -1,14 +1,15 @@
 
 streamlit
-langchain==0.3.27
+langchain
 langchain-community
-langchain-openai==0.3.33
-langchain-core==0.3.76
+langchain-openai
+langchain-core
 langchain-chroma
 pysqlite3-binary
 pypdf
 langchain-text-splitters
 openai
+
 
 
 
